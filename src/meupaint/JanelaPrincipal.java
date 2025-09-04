@@ -42,10 +42,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         botaoBorracha = new javax.swing.JToggleButton();
         botaoLimpar = new javax.swing.JButton();
         botaoCaneta = new javax.swing.JToggleButton();
+        Desfazer = new javax.swing.JButton();
+        Refazer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MeuPaint");
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         painelDesenho.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -65,7 +66,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 875, Short.MAX_VALUE)
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,20 +78,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         buttonGroup.add(botaoLinha);
         botaoLinha.setSelected(true);
         botaoLinha.setText("Linha");
-        botaoLinha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoLinha.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         buttonGroup.add(botaoRetangulo);
         botaoRetangulo.setText("Retângulo");
-        botaoRetangulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoRetangulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         buttonGroup.add(botaoElipse);
         botaoElipse.setText("Elipse");
-        botaoElipse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoElipse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         painelContorno.setBackground(new java.awt.Color(0, 0, 0));
         painelContorno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         painelContorno.setToolTipText("Cor do Contorno");
-        painelContorno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        painelContorno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         painelContorno.setPreferredSize(new java.awt.Dimension(20, 20));
         painelContorno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -112,7 +113,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelPreenchimento.setBackground(new java.awt.Color(255, 255, 255));
         painelPreenchimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         painelPreenchimento.setToolTipText("Cor do Preenchimento");
-        painelPreenchimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        painelPreenchimento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         painelPreenchimento.setPreferredSize(new java.awt.Dimension(20, 20));
         painelPreenchimento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,11 +134,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup.add(botaoPoligono);
         botaoPoligono.setText("Polígonos");
-        botaoPoligono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoPoligono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         buttonGroup.add(botaoBorracha);
         botaoBorracha.setText("Borracha");
-        botaoBorracha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoBorracha.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         botaoLimpar.setText("Limpar");
         botaoLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +152,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         botaoCaneta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCanetaActionPerformed(evt);
+            }
+        });
+
+        Desfazer.setText("Desfazer");
+        Desfazer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DesfazerActionPerformed(evt);
+            }
+        });
+
+        Refazer.setText("Refazer");
+        Refazer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefazerActionPerformed(evt);
             }
         });
 
@@ -173,7 +188,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(botaoPoligono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoBorracha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Desfazer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Refazer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelPreenchimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +209,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(botaoPoligono)
                 .addComponent(botaoBorracha)
                 .addComponent(botaoLimpar)
-                .addComponent(botaoCaneta))
+                .addComponent(botaoCaneta)
+                .addComponent(Desfazer)
+                .addComponent(Refazer))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,12 +335,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoCanetaActionPerformed
 
+    private void DesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesfazerActionPerformed
+        painelDesenho.desfazer();
+    }//GEN-LAST:event_DesfazerActionPerformed
+
+    private void RefazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefazerActionPerformed
+         painelDesenho.refazer();
+    }//GEN-LAST:event_RefazerActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Desfazer;
+    private javax.swing.JButton Refazer;
     private javax.swing.JToggleButton botaoBorracha;
     private javax.swing.JToggleButton botaoCaneta;
     private javax.swing.JToggleButton botaoElipse;
