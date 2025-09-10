@@ -2,6 +2,7 @@ package meupaint;
 
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,6 +13,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName());
     
     private Forma forma;
+    private int ladosPoligono = 3;
 
     /**
      * Creates new form JanelaPrincipal
@@ -66,14 +68,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 875, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 653, Short.MAX_VALUE)
         );
 
-        painelForms.setBorder(javax.swing.BorderFactory.createTitledBorder("Formas"));
+        painelForms.setBorder(javax.swing.BorderFactory.createTitledBorder("Ferramentas"));
 
         buttonGroup.add(botaoLinha);
         botaoLinha.setSelected(true);
@@ -135,6 +137,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         buttonGroup.add(botaoPoligono);
         botaoPoligono.setText("Polígonos");
         botaoPoligono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        botaoPoligono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPoligonoActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(botaoBorracha);
         botaoBorracha.setText("Borracha");
@@ -178,30 +185,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(botaoLimpar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoCaneta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoLinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoRetangulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoElipse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoPoligono)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botaoBorracha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoLinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoRetangulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoPoligono)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoElipse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Desfazer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Refazer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(painelPreenchimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelFormsLayout.setVerticalGroup(
             painelFormsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFormsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(botaoLinha)
                 .addComponent(botaoRetangulo)
                 .addComponent(botaoElipse)
                 .addComponent(painelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +217,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(botaoLimpar)
                 .addComponent(botaoCaneta)
                 .addComponent(Desfazer)
-                .addComponent(Refazer))
+                .addComponent(Refazer)
+                .addComponent(botaoLinha))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,6 +255,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private static final int TAMANHO_CANETA = 5;
     
     private void painelDesenhoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMousePressed
+       
+      
+        
         if(botaoLinha.isSelected() ) {
             forma = new Linha();
         } else if(botaoRetangulo.isSelected()) {
@@ -255,7 +265,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } else if(botaoElipse.isSelected()) {
             forma = new Elipse();
         } else if(botaoPoligono.isSelected()) {
-            forma = new Poligono();
+            forma = new Poligono(ladosPoligono);
         } else if(botaoBorracha.isSelected()) {
             forma = new Retangulo();
             forma.setContorno(Color.WHITE);
@@ -295,8 +305,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             painelDesenho.repaint();           
         } else if(botaoCaneta.isSelected()) {
             forma = new Elipse();
-            forma.setContorno(painelPreenchimento.getBackground());
-            forma.setPreenchimento(painelPreenchimento.getBackground());
+            forma.setContorno(painelContorno.getBackground());
+            forma.setPreenchimento(painelContorno.getBackground());
             forma.setX1(evt.getX());
             forma.setY1(evt.getY());
             forma.setX2(evt.getX() + TAMANHO_CANETA);
@@ -320,7 +330,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelContornoMouseClicked
 
     private void painelPreenchimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelPreenchimentoMouseClicked
-         Color c = JColorChooser.showDialog(this, "Cor do Contorno", painelPreenchimento.getBackground());
+         Color c = JColorChooser.showDialog(this, "Cor do Preenchimento", painelPreenchimento.getBackground());
         
         if(c != null) {
             painelPreenchimento.setBackground(c);
@@ -342,6 +352,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void RefazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefazerActionPerformed
          painelDesenho.refazer();
     }//GEN-LAST:event_RefazerActionPerformed
+
+    private void botaoPoligonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPoligonoActionPerformed
+            String input = JOptionPane.showInputDialog(this, "Digite a quantidade de lados:",ladosPoligono);
+
+    if(input != null) {
+        try {
+            int valor = Integer.parseInt(input);
+            if(valor >= 3) {
+                ladosPoligono = valor;
+            } else {
+                JOptionPane.showMessageDialog(this, "O polígono deve ter ao menos 3 lados.", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,"Digite um número válido.","ERRO!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_botaoPoligonoActionPerformed
 
     /**
      * @param args the command line arguments
